@@ -1,3 +1,3 @@
-import * as admin from 'firebase-admin';
+import * as admin from 'firebase-admin'
 
-export default admin.firestore;
+export default admin.firestore

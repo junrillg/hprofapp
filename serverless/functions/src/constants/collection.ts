@@ -1,2 +1,2 @@
-export const CLUSTER = 'cluster';
-export const HOUSEHOLD = 'household';
+export const CLUSTER = 'cluster'
+export const HOUSEHOLD = 'household'
