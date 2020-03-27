@@ -2,7 +2,7 @@
 
 > Enabling profiling of every household on a specific area less painful
 
-### Setting up firebase
+### Setting up Firebase
 
 - Install [firebase cli](https://firebase.google.com/docs/cli)
 - Run `firebase login`
@@ -14,6 +14,8 @@
 - Run `gcloud auth application-default login`
 
 ### Get Started
+
+- Run development `npm start`
 
 ### Contribute
 
