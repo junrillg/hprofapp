@@ -13,8 +13,9 @@
 - Download [Google Cloud SDK](https://cloud.google.com/sdk/install)
 - Run `gcloud auth application-default login`
 
-### Get Started
+### Development
 
+- On `/servless` directory, create `src/firebase.config.ts` based on [firebase configuration](https://firebase.google.com/docs/web/setup#config-object)
 - Run development `npm start`
 
 ### Contribute

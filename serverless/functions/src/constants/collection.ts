@@ -1,2 +1,3 @@
-export const CLUSTER = 'cluster'
-export const HOUSEHOLD = 'household'
+export const CLUSTERS = 'clusters'
+export const HOUSEHOLDS = 'households'
+export const USERS = 'users'
