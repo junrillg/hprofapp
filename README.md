@@ -4,7 +4,7 @@
 
 ### Setting up Firebase
 
-- Install [firebase cli](https://firebase.google.com/docs/cli)
+- Install firebase cli - `npm i -g firebase-tools`
 - Run `firebase login`
 
 ### Setting up Google Cloud

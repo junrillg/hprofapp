@@ -1,7 +1,4 @@
 import request from './util/request'
-import { createHouseHoldHandler } from './handlers/household'
+import routes from './routes'
 
-/**
- * Household
- */
-export const createHouseHold = request(createHouseHoldHandler)
+exports.api = request(routes)

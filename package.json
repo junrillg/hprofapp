@@ -7,7 +7,7 @@
   "scripts": {
     "start": "concurrently \"npm run client:dev\" \"npm run server:dev\"",
     "client:dev": "npm start --prefix client",
-    "server:dev": "cd serverless/functions &&  firebase serve"
+    "server:dev": "cd serverless && firebase serve"
   },
   "husky": {
     "hooks": {

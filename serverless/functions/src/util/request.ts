@@ -1,10 +1,9 @@
 import * as functions from 'firebase-functions'
 
-export type RequestHandler = (
+export type Route = (
   req: functions.https.Request,
   resp: functions.Response<any>
 ) => void
 
-export default function (handler: RequestHandler) {
-  return functions.region('asia-east2').https.onRequest(handler)
-}
+export default (routes: Route) =>
+  functions.region('asia-east2').https.onRequest(routes)
