@@ -9,7 +9,7 @@ type Person = {
 }
 
 export interface HouseholdRequestSchema extends ValidatedRequestSchema {
-  [ContainerTypes.Query]: {
+  [ContainerTypes.Body]: {
     familyName: string
     clusterId: string
     address: string
@@ -17,9 +17,12 @@ export interface HouseholdRequestSchema extends ValidatedRequestSchema {
     clusterData: any
     persons: Person
   }
+  [ContainerTypes.Params]: {
+    id: string
+  }
 }
 
-export const householdSchema = Joi.object({
+export const householdBodySchema = Joi.object({
   familyName: Joi.string().required(),
   clusterId: Joi.string().required(),
   address: Joi.string().required(),
@@ -35,4 +38,14 @@ export const householdSchema = Joi.object({
       })
     )
     .required(),
+})
+
+export interface HouseholdQuerySchema extends ValidatedRequestSchema {
+  [ContainerTypes.Query]: {
+    clusterId: number
+  }
+}
+
+export const householdQuerySchema = Joi.object({
+  clusterId: Joi.number().required(),
 })

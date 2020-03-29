@@ -1,16 +1,55 @@
 import app from './util/app'
-import { createHouseHoldHandler } from './handlers/households'
+import {
+  createHouseHoldHandler,
+  deleteHouseholdHandler,
+  getAllHouseholdByCluster,
+  getHouseholdByIdHandler,
+  updateHouseholdHandler,
+} from './handlers/households'
 import { createUserHandler } from './handlers/users'
 import validator from './util/validator'
-import { userSchema } from './schema/users'
-import { householdSchema } from './schema/household'
+import { userBodySchema } from './schema/users'
+import { householdBodySchema, householdQuerySchema } from './schema/households'
+import { IdParamsSchema } from './schema/common'
+import { HOUSEHOLDS } from './constants/collection'
 
+//===========================================================
+// Household
+//===========================================================
 app.post(
-  '/households',
-  validator.query(householdSchema),
+  `/${HOUSEHOLDS}`,
+  validator.body(householdBodySchema),
   createHouseHoldHandler
 )
 
-app.post('/users', validator.query(userSchema), createUserHandler)
+app.get(
+  `/${HOUSEHOLDS}`,
+  validator.query(householdQuerySchema),
+  getAllHouseholdByCluster
+)
+
+app.get(
+  `/${HOUSEHOLDS}/:id`,
+  validator.params(IdParamsSchema),
+  getHouseholdByIdHandler
+)
+
+app.put(
+  `/${HOUSEHOLDS}/:id`,
+  validator.params(IdParamsSchema),
+  validator.body(householdBodySchema),
+  updateHouseholdHandler
+)
+
+app.delete(
+  `/${HOUSEHOLDS}/:id`,
+  validator.params(IdParamsSchema),
+  deleteHouseholdHandler
+)
+
+//===========================================================
+// Users
+//===========================================================
+app.post('/users', validator.body(userBodySchema), createUserHandler)
 
 export default app
