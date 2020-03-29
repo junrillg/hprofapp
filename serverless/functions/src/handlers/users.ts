@@ -1,11 +1,12 @@
 import { ValidatedRequest } from 'express-joi-validation'
 import { EMAIL_ALREADY_EXIST } from '../constants/errorCodes'
 import { USERS } from '../constants/collection'
-import { Response } from '../util/types'
+import { Response, User } from '../util/types'
 import { btoa } from '../util/helper'
 import { UserBodySchema } from '../schema/users'
 import dataService from '../services/dataService'
-import { createAuthUser, getToken } from '../services/authService'
+import { createAuthUser } from '../services/authService'
+import { getUserRole } from '../util/user'
 
 const userService = dataService(USERS)
 
@@ -23,6 +24,10 @@ export const createUserHandler = async (
     password: req.body.password,
     confirmPassword: req.body.confirmPassword,
     handle: btoa(req.body.email),
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    phoneNumber: req.body.phoneNumber,
+    address: req.body.address,
   }
 
   try {
@@ -41,13 +46,16 @@ export const createUserHandler = async (
           await userService.updateData(newUser.handle, {
             handle: newUser.handle,
             email: newUser.email,
-            createdAt: new Date().toISOString(),
             userId,
+            role: getUserRole(((req as any).user as User).role, req.body.role),
+            clusterId: ((req as any).user as User).clusterId,
+            createdAt: new Date().toISOString(),
+            createdBy: `${((req as any).user as User).firstName} ${
+              ((req as any).user as User).lastName
+            }`,
           })
-          const token = await getToken(data)
           res.status(201).json({
             message: `User successfully created!`,
-            token,
           })
         } catch (e) {
           res.status(500).json(e)

@@ -1,10 +1,10 @@
-import fs from '../util/fs'
-import { Response } from '../util/types'
+import { Response, User } from '../util/types'
 import { HOUSEHOLDS } from '../constants/collection'
 import { ValidatedRequest } from 'express-joi-validation'
 import { HouseholdRequestSchema } from '../schema/households'
 import { IdParamsSchema } from '../schema/common'
 import dataService from '../services/dataService'
+import { constructData } from '../util/helper'
 
 const householdService = dataService(HOUSEHOLDS)
 
@@ -17,11 +17,7 @@ export const createHouseHoldHandler = async (
   req: ValidatedRequest<HouseholdRequestSchema>,
   res: Response
 ) => {
-  const newHouseHold = {
-    ...req.body,
-    createdAt: fs.Timestamp.fromDate(new Date()),
-  }
-
+  const newHouseHold = constructData(req)
   try {
     await householdService.createData(newHouseHold)
     res.json({ message: `Household successfully created!` })
@@ -43,7 +39,7 @@ export const getAllHouseholdByCluster = async (
     const data = await householdService.getAllDataWithPredicate([
       'clusterId',
       '==',
-      req.query.clusterId,
+      ((req as any).user as User).clusterId,
     ])
     res.status(200).json(data)
   } catch (e) {

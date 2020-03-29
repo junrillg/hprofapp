@@ -9,3 +9,8 @@ export const getToken = async (data: object) =>
 
 export const createAuthUser = async (email: string, password: string) =>
   await firebase.auth().createUserWithEmailAndPassword(email, password)
+
+export const loginAuthUser = async (email: string, password: string) =>
+  await firebase.auth().signInWithEmailAndPassword(email, password)
+
+export const logoutAuthUser = async () => await firebase.auth().signOut()

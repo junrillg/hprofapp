@@ -37,7 +37,7 @@ const getAllDataWithPredicate = async (
         clause[VALUE_INDEX]
       )
       .get()
-    return (data as any).docs
+    return (data as any).docs.map((doc: any) => doc.data())
   } else {
     return []
   }
@@ -60,7 +60,7 @@ const getDataWithPredicate = async (collection: string, clause: string[]) => {
       .limit(1)
       .get()
     const validDoc = (data as any).docs && (data as any).docs.length >= 1
-    return validDoc ? (data as any).docs[0] : null
+    return validDoc ? (data as any).docs[0].data() : null
   } else {
     return null
   }

@@ -15,7 +15,7 @@ export interface HouseholdRequestSchema extends ValidatedRequestSchema {
     address: string
     clusterZoneId: string
     clusterData: any
-    persons: Person
+    persons: Person[]
   }
   [ContainerTypes.Params]: {
     id: string

@@ -3,11 +3,6 @@ import authorize from '../middleware/authorize'
 
 const app = express()
 
-// @ts-ignore
-app.use(
-  authorize().unless({
-    path: ['/login'],
-  })
-)
+app.use(authorize({ exclude: ['/login', '/logout'] }))
 
 export default app
