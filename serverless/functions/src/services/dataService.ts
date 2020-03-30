@@ -1,4 +1,4 @@
-import db from '../util/db'
+import { db } from '../util/admin'
 import WhereFilterOp = firebase.firestore.WhereFilterOp
 
 const createDataHandler = async (collection: string, data: object) =>

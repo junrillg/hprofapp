@@ -1,4 +1,4 @@
-import request from 'lib/request'
+import fetch from 'lib/fetch'
 import { errorHandler, successHandler } from './requestHandler'
 
 export type LoginRequest = {
@@ -7,10 +7,10 @@ export type LoginRequest = {
 }
 
 export const loginAsync = (data: LoginRequest) =>
-  request().post('/login', data).then(successHandler).catch(errorHandler)
+  fetch().post('/login', data).then(successHandler).catch(errorHandler)
 
 export const logoutAsync = () =>
-  request().post('/logout').then(successHandler).catch(errorHandler)
+  fetch().post('/logout').then(successHandler).catch(errorHandler)
 
 export const sessionDataAsync = () =>
-  request().get('/session').then(successHandler).catch(errorHandler)
+  fetch().get('/session').then(successHandler).catch(errorHandler)

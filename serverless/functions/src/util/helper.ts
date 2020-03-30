@@ -1,5 +1,4 @@
-import fs from './fs'
-import { User } from './types'
+import { fs } from './admin'
 
 export const btoa = (data: string) => Buffer.from(data).toString('base64')
 
@@ -11,7 +10,5 @@ export const includes = (list: string[], value: string) => {
 export const constructData = (req: any) => ({
   ...req.body,
   createdAt: fs.Timestamp.fromDate(new Date()),
-  createdBy: `${((req as any).user as User).firstName} ${
-    ((req as any).user as User).lastName
-  }`,
+  createdBy: `${req.user.firstName} ${req.user.lastName}`,
 })

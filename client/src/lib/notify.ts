@@ -1,9 +1,6 @@
 import { toast } from 'react-toastify'
+import toastifyConfig from '../config/toastifyConfig'
 
-toast.configure({
-  autoClose: 8000,
-  draggable: false,
-  position: toast.POSITION.TOP_RIGHT,
-})
+toast.configure(toastifyConfig)
 
 export default toast

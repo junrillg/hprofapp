@@ -1,3 +1,3 @@
 import { SessionState } from './types'
 
-export const getSessionData = (state: SessionState) => state
+export const getSession = (state: any): SessionState => state.session

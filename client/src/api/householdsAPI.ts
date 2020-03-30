@@ -1,4 +1,4 @@
-import request from 'lib/request'
+import fetch from 'lib/fetch'
 import { errorHandler, successHandler } from './requestHandler'
 
 type Person = {
@@ -18,19 +18,19 @@ export type HouseholdRequest = {
 }
 
 export const createHousehold = (data: HouseholdRequest) =>
-  request().post('/households', data).then(successHandler).catch(errorHandler)
+  fetch().post('/households', data).then(successHandler).catch(errorHandler)
 
 export const getHouseholdById = (id: number) =>
-  request().get(`/households/${id}`).then(successHandler).catch(errorHandler)
+  fetch().get(`/households/${id}`).then(successHandler).catch(errorHandler)
 
 export const getAllHousehold = () =>
-  request().get(`/households`).then(successHandler).catch(errorHandler)
+  fetch().get(`/households`).then(successHandler).catch(errorHandler)
 
 export const updateHousehold = (id: number, data: HouseholdRequest) =>
-  request()
+  fetch()
     .put(`/households/${id}`, data)
     .then(successHandler)
     .catch(errorHandler)
 
 export const deleteHousehold = (id: number) =>
-  request().delete(`/households/${id}`).then(successHandler).catch(errorHandler)
+  fetch().delete(`/households/${id}`).then(successHandler).catch(errorHandler)

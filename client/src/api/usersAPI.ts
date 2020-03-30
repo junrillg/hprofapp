@@ -1,4 +1,4 @@
-import request from '../lib/request'
+import fetch from '../lib/fetch'
 import { errorHandler, successHandler } from './requestHandler'
 
 export type UserRequest = {
@@ -9,4 +9,4 @@ export type UserRequest = {
 }
 
 export const createUser = (data: UserRequest) =>
-  request().post('/users', data).then(successHandler).catch(errorHandler)
+  fetch().post('/users', data).then(successHandler).catch(errorHandler)

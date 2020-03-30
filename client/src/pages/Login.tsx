@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from 'react'
+import { Redirect } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -14,7 +15,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { deepPurple } from '@material-ui/core/colors'
 import { login } from 'features/session/sessionActions'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getSession } from 'features/session/selectors'
+import { SessionState } from 'features/session/types'
 
 function Copyright() {
   return (
@@ -57,6 +60,8 @@ export default function SignIn() {
 
   const dispatch = useDispatch()
 
+  const session = useSelector(getSession)
+
   const [formState, setFormState] = useState({
     data: {
       email: '',
@@ -80,6 +85,7 @@ export default function SignIn() {
     dispatch(login(formState.data))
   }
 
+  if (session.loggedIn) return <Redirect to="/" />
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

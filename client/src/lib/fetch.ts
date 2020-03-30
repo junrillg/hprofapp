@@ -1,13 +1,12 @@
 import axios from 'axios'
 import { getToken } from './storage'
 
-const createRequest = () =>
+export default () =>
   axios.create({
     baseURL: process.env.REACT_APP_API_BASE_URL,
     headers: {
-      'content-Type': 'application/json',
+      Accept: 'application/json, application/xml, text/play, text/html, *.*',
+      'Content-Type': 'application/json',
       Authorization: getToken(),
     },
   })
-
-export default createRequest
