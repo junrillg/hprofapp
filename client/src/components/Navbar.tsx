@@ -1,4 +1,6 @@
 import React, { useState, Fragment, FunctionComponent } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -14,15 +16,14 @@ import DashboardIcon from '@material-ui/icons/Dashboard'
 import MenuIcon from '@material-ui/icons/Menu'
 import GroupIcon from '@material-ui/icons/Group'
 import { Avatar } from '@material-ui/core'
-import { deepPurple } from '@material-ui/core/colors'
+
+import { logOut } from 'features/session/sessionActions'
+import { getSession } from 'features/session/selectors'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-    },
-    appBar: {
-      backgroundColor: deepPurple[500],
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -38,8 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: 0,
     },
     avatar: {
-      color: theme.palette.getContrastText(deepPurple[500]),
-      backgroundColor: deepPurple[500],
+      backgroundColor: theme.palette.primary.main,
     },
   })
 )
@@ -51,14 +51,24 @@ type Props = OwnProps
 const Navbar: FunctionComponent<Props> = (props) => {
   const classes = useStyles()
 
+  const session = useSelector(getSession)
   const [open, setOpen] = useState(false)
 
+  const dispatch = useDispatch()
+
   const handleToggleDrawer = () => setOpen(!open)
+
+  const handleLogout = () => dispatch(logOut())
+
+  const geFullName = () => {
+    const { firstName, lastName } = session.data
+    return `${firstName} ${lastName}`
+  }
 
   return (
     <Fragment>
       <div className={classes.root}>
-        <AppBar classes={{ root: classes.appBar }} position="static">
+        <AppBar position="static">
           <Toolbar>
             <IconButton
               edge="start"
@@ -72,7 +82,9 @@ const Navbar: FunctionComponent<Props> = (props) => {
             <Typography variant="h6" className={classes.title}>
               HProf
             </Typography>
-            <Button color="inherit">Login</Button>
+            <Button color="inherit" onClick={handleLogout}>
+              Logout
+            </Button>
           </Toolbar>
         </AppBar>
       </div>
@@ -81,7 +93,7 @@ const Navbar: FunctionComponent<Props> = (props) => {
           <MenuList classes={{ root: classes.menuList }}>
             <MenuItem selected classes={{ root: classes.menuItem }}>
               <ListItemIcon>
-                <Avatar className={classes.avatar}>OP</Avatar>
+                <Avatar className={classes.avatar}>{geFullName()}</Avatar>
               </ListItemIcon>
               <Typography variant="h6">User</Typography>
             </MenuItem>

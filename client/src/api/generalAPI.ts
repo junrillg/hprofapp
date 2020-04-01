@@ -12,5 +12,5 @@ export const loginAsync = (data: LoginRequest) =>
 export const logoutAsync = () =>
   fetch().post('/logout').then(successHandler).catch(errorHandler)
 
-export const sessionDataAsync = () =>
+export const fetchSessionDataAsync = () =>
   fetch().get('/session').then(successHandler).catch(errorHandler)

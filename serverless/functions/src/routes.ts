@@ -27,7 +27,7 @@ import { createClusterHandler, updateClusterHandler } from './handlers/clusters'
 // General
 //===========================================================
 app.post(`/login`, validator.body(loginBodySchema), loginHandler)
-app.post(`/logout`, validator.body(loginBodySchema), logoutHandler)
+app.post(`/logout`, logoutHandler)
 
 app.get(`/session`, sessionHandler)
 

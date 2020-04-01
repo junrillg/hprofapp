@@ -1,4 +1,6 @@
 export const SET_LOGGED_IN = 'setLoggedIn'
 export const SET_SESSION_DATA = 'setSessionData'
+export const SET_LOADING = 'setLoading'
 export const LOG_IN = 'logIn'
+export const LOG_OUT = 'logOut'
 export const FETCH_USER_SESSION = 'fetchUserSession'

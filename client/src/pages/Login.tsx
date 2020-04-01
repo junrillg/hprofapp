@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FC, FormEvent, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -17,20 +17,9 @@ import { deepPurple } from '@material-ui/core/colors'
 import { login } from 'features/session/sessionActions'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSession } from 'features/session/selectors'
-import { SessionState } from 'features/session/types'
+import { CircularProgress } from '@material-ui/core'
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
+import Copyright from 'components/Copyright'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -55,7 +44,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function SignIn() {
+interface OwnProps {}
+
+type Props = OwnProps
+
+const Login: FC<Props> = () => {
   const classes = useStyles()
 
   const dispatch = useDispatch()
@@ -94,7 +87,7 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Household Profiling
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -131,9 +124,9 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handleLogin}
+            onClick={session.loading ? () => {} : handleLogin}
           >
-            Sign In
+            {session.loading ? <CircularProgress color="inherit" /> : 'Login'}
           </Button>
           <Grid container>
             <Grid item xs>
@@ -155,3 +148,5 @@ export default function SignIn() {
     </Container>
   )
 }
+
+export default Login

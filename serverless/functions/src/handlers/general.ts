@@ -14,7 +14,7 @@ export const loginHandler = async (
   try {
     const data = await loginAuthUser(req.body.email, req.body.password)
     const token = await getToken(data)
-    res.status(200).json({ token, message: `Login successfully!` })
+    res.status(200).json({ token })
   } catch (e) {
     res.status(400).json(e)
   }

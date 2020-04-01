@@ -26,7 +26,9 @@ export type Session = {
 
 export interface SessionState {
   loggedIn: boolean
-  session: Session
+  data: Session
+  appInit: boolean
+  loading: boolean
 }
 
 export type SessionActionTypes = {

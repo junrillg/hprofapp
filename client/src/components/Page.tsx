@@ -1,8 +1,9 @@
-import React, { FC, Fragment } from 'react'
+import React, { FC, Fragment, useEffect } from 'react'
 import Navbar from './Navbar'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getSession } from '../features/session/selectors'
 import { Redirect } from 'react-router-dom'
+import { fetchUserSession } from 'features/session/sessionActions'
 
 interface OwnProps {}
 
@@ -11,7 +12,13 @@ type Props = OwnProps
 const Page: FC<Props> = (props) => {
   const session = useSelector(getSession)
 
-  if (!session.loggedIn) return <Redirect to="/login" />
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchUserSession())
+  }, [dispatch])
+
+  if (!session.loggedIn && session.appInit) return <Redirect to="/login" />
   return (
     <Fragment>
       <Navbar />
